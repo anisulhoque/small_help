@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html>
+<head>
+&copy; 2021-<?php echo date("Y");?>
+<?php include 'inc_footer.php';?>
+<!-- Topics: -->
+<!-- Introduction -->
+	<!-- a. Keywords -->
+	<!-- b. Operators -->
+	<!-- c. Globals -->
+	<!-- d. Callback -->
+	<!-- e. File I/O -->
+	<!-- f. Strict arguments -->
+	<!-- g. Exception -->
+	<!-- h. Object -->
+	<!-- i. Regular expression -->
+	<!-- j. Iterator -->
+	<!-- k. Date Time -->
+	
+<!-- 1. Security, Validation -->
+<!-- 2. Cookie -->
+<!-- 3. MySQL -->
+<!-- 4. XML -->
+<!-- 5. Session management -->
+<!-- 6. JSON: File man -->
+<!-- 7. AJAX -->
+<style>
+.error {color: #FF0000;}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+<?php
+// A single-line comment
+# Print This is also a single-line comment
+echo "My first PHP script!";
+// variable
+$txt = "PHP";
+echo "I love $txt!";
+// global scope - 1
+$x = 5;
+$y = 10;
+function myTest() {
+  global $x, $y;
+  $y = $x + $y;
+}
+myTest();
+echo $y;
+// global scope - 2
+$x = 5;
+$y = 10;
+function myTest() {
+  $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];
+}
+myTest();
+echo $y;
+// static variable
+function myTest() {
+  static $x = 0;
+  echo $x;
+  $x++;
+}
+myTest();
+myTest();
+myTest();
+// Dump variable
+$x = 5985;
+var_dump($x);
+$x = true;
+$y = false;
+$cars = array("Volvo","BMW","Toyota");
+var_dump($cars);
+// null variable
+$x = "Hello world!";
+$x = null;
+var_dump($x);
+// type Cast float to int
+$x = 23465.768;
+$int_cast = (int)$x;
+echo $int_cast;
+// Cast string to int
+$x = "23465.768";
+$int_cast = (int)$x;
+echo $int_cast;
+//　String man
+$x = "Hello world!";
+echo strlen($x);
+echo str_word_count("Hello world!");
+echo strrev("Hello world!");
+echo strpos("Hello world!", "world");
+echo str_replace("world", "Dolly", "Hello world!");
+$x = 59.85;
+var_dump(is_int($x));
+var_dump(is_float($x));
+$x = PHP_FLOAT_MAX 
+var_dump(is_finite($x));
+var_dump(is_nan($x));
+// Constants are Global
+define("GREETING", "Welcome to W3Schools.com!");
+echo GREETING;
+/* Date Time */
+$t = date("H");
+if ($t < "20") {
+  echo "Have a good day!";
+}
+if ($t < "20") {
+  echo "Have a good day!";
+} else {
+  echo "Have a good night!";
+}
+if ($t < "10") {
+  echo "Have a good morning!";
+} elseif ($t < "20") {
+  echo "Have a good day!";
+} else {
+  echo "Have a good night!";
+}
+// Switch
+$favcolor = "red";
+switch ($favcolor) {
+  case "red":
+    echo "Your favorite color is red!";
+    break;
+  default:
+    echo "Your favorite color is neither red, blue, nor green!";
+}
+// While
+$x = 1;
+while($x <= 5) {
+  echo "The number is: $x <br>";
+  $x++;
+}
+// Do-While
+$x = 1;
+do {
+  echo "The number is: $x <br>";
+  $x++;
+} while ($x <= 5);
+// For
+for ($x = 0; $x <= 10; $x++) {
+  echo "The number is: $x <br>";
+}
+// For each
+$colors = array("red", "green", "blue", "yellow");
+foreach ($colors as $value) {
+  echo "$value <br>";
+}
+// Indexed Arrays
+$cars = array("Volvo", "BMW", "Toyota");
+echo $cars[1];
+// Associative Arrays
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+echo $age['Peter'];
+// Loop Through an Associative Array
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+foreach($age as $x => $x_value) {
+  echo "Key=" . $x . ", Value=" . $x_value;
+  echo "<br>";
+}
+// ?? The PHP superglobal variables
+$x = 75;
+$y = 25;
+function addition() {
+  $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y'];
+}
+addition();
+echo $z;
+$strings = ["apple", "orange", "banana", "coconut"];
+$lengths = array_map( function($item) { return strlen($item); } , $strings);
+print_r($lengths);
+/* Callback */
+function exclaim($str) {return $str . "! ";}
+function ask($str) {return $str . "? ";}
+function printFormatted($str, $format) {
+  // Calling the $format callback function
+  echo $format($str);
+}
+// Pass "exclaim" and "ask" as callback functions to printFormatted()
+printFormatted("Hello world", "exclaim");
+printFormatted("Hello world", "ask");
+/* File I/O */
+echo readfile("webdictionary.txt");
+// Open File, r, w, x, a
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+echo fread($myfile,filesize("webdictionary.txt"));
+echo fgets($myfile);
+while(!feof($myfile)) {
+  echo fgets($myfile) . "<br>";
+}
+while(!feof($myfile)) {
+  echo fgetc($myfile);
+}
+$txt = "John Doe\n";
+fwrite($myfile, $txt);
+fclose($myfile);
+/* strict requirement */
+declare(strict_types=1); 
+function addNumbers(float $a, float $b) : float {
+  return $a + $b;
+}
+echo addNumbers(1.2, 5.2);
+// Pass by reference
+function add_five(&$value) {
+  $value += 5;
+}
+$num = 2;
+add_five($num);
+echo $num;
+// Sort Array in Ascending Order
+$cars = array("Volvo", "BMW", "Toyota");
+sort($cars);
+// Sort Array in Descending Order
+rsort($cars);
+// Sort Array (Ascending Order), According to Value
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+asort($age);
+// Sort Array (Ascending Order), According to Key
+ksort($age);
+/* Regular expression */
+$str = "Visit W3Schools. The rain in SPAIN falls mainly on the plains.";
+$pattern = "/w3schools/i";
+echo preg_match($pattern, $str);
+$pattern = "/ain/i";
+echo preg_match_all($pattern, $str);
+echo preg_replace($pattern, "W3Schools", $str);
+$pattern = "/ba(na){2}/i";
+echo preg_match($pattern, $str);
+// Wrap numbers in brackets in a list of strings:
+$input = [
+  "It is 5 o'clock",
+  "40 days",
+  "No numbers here",
+  "In the year 2000"
+];
+$result = preg_filter('/[0-9]+/', '($0)', $input);
+print_r($result);
+// Get items from an array which begin with "p":
+$input = [
+  "Red",
+  "Pink",
+  "Green",
+  "Blue",
+  "Purple"
+];
+$result = preg_grep("/^p/i", $input);
+print_r($result);
+// Use preg_last_error() to handle errors:
+$pattern = '/invalid//';
+$match = @preg_match($pattern, $str, $matches);
+if($match === false) {
+  // An error occurred
+  $err = preg_last_error();
+  if($err == PREG_INTERNAL_ERROR) {
+    echo 'Invalid regular expression.';
+  }
+} else if($match) {
+  // A match was found
+  echo $matches[0];
+} else {
+  // No matches were found
+  echo 'No matches found';
+}
+// Count letters in all of the words in a sentence:
+function countLetters($matches) {
+  return $matches[0] . '(' . strlen($matches[0]) . ')';
+}
+$input = "Welcome to W3Schools.com!";
+$pattern = '/[a-z0-9\.]+/i';
+$result = preg_replace_callback($pattern, 'countLetters', $input);
+echo $result;
+// Show how many letters or digits are found in each word in a sentence:
+function countLetters($matches) {
+  return $matches[0] . '[' . strlen($matches[0]) . 'letter]';
+}
+function countDigits($matches) {
+  return $matches[0] . '[' . strlen($matches[0]) . 'digit]';
+}
+$input = "There are 365 days in a year.";
+$patterns = [
+  '/\b[a-z]+\b/i' => 'countLetters',
+  '/\b[0-9]+\b/' => 'countDigits'
+];
+$result = preg_replace_callback_array($patterns, $input);
+echo $result;
+// Count pattern
+function countLetters($matches) {
+  return $matches[0] . '[' . strlen($matches[0]) . 'letter]';
+}
+function countDigits($matches) {
+  return $matches[0] . '[' . strlen($matches[0]) . 'digit]';
+}
+$input = "365 days";
+$patterns = [
+  '/[a-z]+/i' => 'countLetters',
+  '/[0-9]+/' => 'countDigits'
+];
+$result = preg_replace_callback_array($patterns, $input);
+echo $result;
+// preg_split() to split a date into its components:
+$date = "1970-01-01 00:00:00";
+$pattern = "/[-\s:]/";
+$components = preg_split($pattern, $date);
+print_r($components);
+// Date pattern
+$date = "1970-01-01 00:00:00";
+$pattern = "/([-\s:])/";
+$components = preg_split($pattern, $date, -1,
+PREG_SPLIT_DELIM_CAPTURE);
+print_r($components);
+// Date pattern
+$date = "1970-01-01";
+$pattern = "/-/";
+$components = preg_split($pattern, $date, -1,
+PREG_SPLIT_OFFSET_CAPTURE);
+print_r($components);
+echo "Today is " . date("Y/m/d") . "<br>";
+echo "Today is " . date("Y.m.d") . "<br>";
+echo "Today is " . date("Y-m-d") . "<br>";
+echo "Today is " . date("l");
+echo "The time is " . date("h:i:sa");
+date_default_timezone_set("America/New_York");
+echo "The time is " . date("h:i:sa");
+$d=mktime(11, 14, 54, 8, 12, 2014);
+echo "Created date is " . date("Y-m-d h:i:sa", $d);
+$d=strtotime("10:30pm April 15 2014");
+echo "Created date is " . date("Y-m-d h:i:sa", $d);
+$d=strtotime("tomorrow");
+echo date("Y-m-d h:i:sa", $d) . "<br>";
+
+$d=strtotime("next Saturday");
+echo date("Y-m-d h:i:sa", $d) . "<br>";
+
+$d=strtotime("+3 Months");
+echo date("Y-m-d h:i:sa", $d) . "<br>";
+$startdate = strtotime("Saturday");
+$enddate = strtotime("+6 weeks", $startdate);
+
+while ($startdate < $enddate) {
+  echo date("M d", $startdate) . "<br>";
+  $startdate = strtotime("+1 week", $startdate);
+}
+$d1=strtotime("July 04");
+$d2=ceil(($d1-time())/60/60/24);
+echo "There are " . $d2 ." days until 4th of July.";
+// URL pattern
+$search = preg_quote("://", "/");
+$input = 'https://www.w3schools.com/';
+$pattern = "/$search/";
+if(preg_match($pattern, $input)) {
+  echo "The input is a URL.";
+} else {
+  echo "The input is not a URL.";
+}
+/* Exception handling */
+function divide($dividend, $divisor) {
+  if($divisor == 0) {
+    throw new Exception("Division by zero");
+  }
+  return $dividend / $divisor;
+}
+
+try {
+  echo divide(5, 0);
+} catch(Exception $e) {
+  echo "Unable to divide. ";
+} finally {
+  echo "Process complete.";
+}
+/* Class, Object */
+class Car {
+  public $color;
+  public $model;
+  public function __construct($color, $model) {
+    $this->color = $color;
+    $this->model = $model;
+  }
+  public function message() {
+    return "My car is a " . $this->color . " " . $this->model . "!";
+  }
+}
+$myCar = new Car("black", "Volvo");
+echo $myCar -> message();
+echo "<br>";
+$myCar = new Car("red", "Toyota");
+echo $myCar -> message();
+/* Iterator */
+class MyIterator implements Iterator {
+  private $items = [];
+  private $pointer = 0;
+  public function __construct($items) {
+    // array_values() makes sure that the keys are numbers
+    $this->items = array_values($items);
+  }
+  public function current() {
+    return $this->items[$this->pointer];
+  }
+  public function key() {
+    return $this->pointer;
+  }
+  public function next() {
+    $this->pointer++;
+  }
+  public function rewind() {
+    $this->pointer = 0;
+  }
+  public function valid() {
+    // count() indicates how many items are in the list
+    return $this->pointer < count($this->items);
+  }
+}
+// A function that uses iterables
+function printIterable(iterable $myIterable) {
+  foreach($myIterable as $item) {
+    echo $item;
+  }
+}
+// Use the iterator as an iterable
+$iterator = new MyIterator(["a", "b", "c"]);
+printIterable($iterator);
+?>
+<?php
+/*----- Security, Validation: Validate Form Data -----*/
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // collect value of input field
+  $name = $_REQUEST['fname'];
+  if (empty($name)) {
+    echo "Name is empty";
+  } else {
+    echo $name;
+  }
+}
+// 1. define variables and set to empty values
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+	// check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+      $nameErr = "Only letters and white space allowed";
+    }
+  }
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+	// check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErr = "Invalid email format";
+    }
+  }
+  if (empty($_POST["website"])) {
+    $website = "";
+  } else {
+    $website = test_input($_POST["website"]);
+	// check if URL address syntax is valid
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
+      $websiteErr = "Invalid URL";
+    }  
+  }
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+/*----- Cookie -----*/
+// Get create modify cookie
+$cookie_name = "user";
+$cookie_value = "John Doe";
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+if(!isset($_COOKIE[$cookie_name])) {
+     echo "Cookie named '" . $cookie_name . "' is not set!";
+} else {
+     echo "Cookie '" . $cookie_name . "' is set!<br>";
+     echo "Value is: " . $_COOKIE[$cookie_name];
+}
+// Delete cookie
+setcookie($cookie_name, $cookie_value, time() - 3600);
+// If cookie enabled
+if(count($_COOKIE) > 0) {
+  echo "Cookies are enabled.";
+} else {
+  echo "Cookies are disabled.";
+}
+/*----- MySQL: DB man -----*/
+echo "<table style='border: solid 1px black;'>";
+echo "<tr><th>Id</th><th>Firstname</th><th>Lastname</th></tr>";
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
+  function beginChildren() {
+    echo "<tr>";
+  }
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDBPDO";
+
+try {
+  // Connect to MySQL
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+  // sql to query records
+  $sql = "SELECT id, firstname, lastname FROM MyGuests";
+  $sql = "SELECT * FROM Orders LIMIT 10 OFFSET 15";
+  $sql = "SELECT id, firstname, lastname FROM MyGuests WHERE lastname='Doe'";
+  $sql = "SELECT id, firstname, lastname FROM MyGuests ORDER BY lastname";
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+
+  // sql to insert a record
+  $sql = "INSERT INTO MyGuests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)";
+  $stmt->bindParam(':firstname', $firstname);
+  $stmt->bindParam(':lastname', $lastname);
+  $stmt->bindParam(':email', $email);
+  // insert a row
+  $firstname = "John";
+  $lastname = "Doe";
+  $email = "john@example.com";
+  
+  // sql to update a record 
+  $sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
+  // Prepare statement
+  $stmt = $conn->prepare($sql);
+  // execute the query
+  $stmt->execute();
+  // echo a message to say the UPDATE succeeded
+  echo $stmt->rowCount() . " records UPDATED successfully";
+  
+  // Create a MySQL Database 
+  $conn = new PDO("mysql:host=$servername", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $sql = "CREATE DATABASE myDBPDO";
+
+  // sql to create table 
+  $sql = "CREATE TABLE MyGuests (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  firstname VARCHAR(30) NOT NULL,
+  lastname VARCHAR(30) NOT NULL,
+  email VARCHAR(50),
+  reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )";
+  
+  // sql to delete a record 
+  $sql = "DELETE FROM MyGuests WHERE id=3";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+  echo "Record deleted successfully";
+  
+  // Multiple update 
+  // begin the transaction
+  $conn->beginTransaction();
+  // our SQL statements
+  $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+  VALUES ('John', 'Doe', 'john@example.com')");
+  $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+  VALUES ('Mary', 'Moe', 'mary@example.com')");
+  $conn->exec("INSERT INTO MyGuests (firstname, lastname, email)
+  VALUES ('Julie', 'Dooley', 'julie@example.com')");
+
+  // commit the transaction
+  $conn->commit();
+  echo "New records created successfully";
+} catch(PDOException $e) {
+  // roll back the transaction if something failed
+  $conn->rollback();
+  echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+echo "</table>";
+
+/*----- XML: File man -----*/
+// Initialize the XML parser
+$parser=xml_parser_create();
+
+// Function to use at the start of an element
+function start($parser,$element_name,$element_attrs) {
+  switch($element_name) {
+    case "NOTE":
+    echo "-- Note --<br>";
+    break;
+    case "TO":
+    echo "To: ";
+    break;
+    case "FROM":
+    echo "From: ";
+    break;
+    case "HEADING":
+    echo "Heading: ";
+    break;
+    case "BODY":
+    echo "Message: ";
+  }
+}
+// Function to use at the end of an element
+function stop($parser,$element_name) {echo "<br>";}
+// Function to use when finding character data
+function char($parser,$data) {echo $data;}
+// Specify element handler
+xml_set_element_handler($parser,"start","stop");
+// Specify data handler
+xml_set_character_data_handler($parser,"char");
+// Open XML file
+$fp=fopen("note.xml","r");
+// Read data
+while ($data=fread($fp,4096)) {
+  xml_parse($parser,$data,feof($fp)) or
+  die (sprintf("XML Error: %s at line %d",
+  xml_error_string(xml_get_error_code($parser)),
+  xml_get_current_line_number($parser)));
+}
+// Free the XML parser
+xml_parser_free($parser);
+/*----- Session: Management -----*/
+// Start the session
+session_start();
+// Set, Modify session variables
+$_SESSION["favcolor"] = "green";
+$_SESSION["favanimal"] = "cat";
+echo "Session variables are set.";
+// Get Session Variable Values
+echo "Favorite color is " . $_SESSION["favcolor"] . ".<br>";
+echo "Favorite animal is " . $_SESSION["favanimal"] . ".";
+print_r($_SESSION);
+// remove all session variables
+session_unset();
+// destroy the session
+session_destroy();
+/*----- JSON: File man -----*/
+// Encode to JSON
+$age = array("Peter"=>35, "Ben"=>37, "Joe"=>43);
+echo json_encode($age);
+// Decode from JSON
+$jsonobj = '{"Peter":35,"Ben":37,"Joe":43}';
+var_dump(json_decode($jsonobj));
+var_dump(json_decode($jsonobj, true));
+echo $obj->Peter;
+echo $obj->Ben;
+echo $obj->Joe;
+echo $arr["Peter"];
+echo $arr["Ben"];
+echo $arr["Joe"];
+foreach($obj as $key => $value) {
+  echo $key . " => " . $value . "<br>";
+}
+?>
+<script>
+/*----- AJAX -----*/
+// 1. Get
+function getVote(int) {
+  var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("poll").innerHTML=this.responseText;
+    }
+  }
+  xmlhttp.open("GET","ajax_poll_vote.php?vote="+int,true);
+  xmlhttp.send();
+}
+// 2. Live search
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","ajax_livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+// 3. Get
+function showCD(str) {
+  if (str=="") {
+    document.getElementById("txtHint").innerHTML="";
+    return;
+  }
+  var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("txtHint").innerHTML=this.responseText;
+    }
+  }
+  xmlhttp.open("GET","ajax_getcd.php?q="+str,true);
+  xmlhttp.send();
+}
+// 4. Get
+function showUser(str) {
+  if (str == "") {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("txtHint").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","ajax_getuser.php?q="+str,true);
+    xmlhttp.send();
+  }
+}
+// 5. Get
+function showHint(str) {
+  if (str.length == 0) {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("txtHint").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET", "ajax_gethint.php?q=" + str, true);
+    xmlhttp.send();
+  }
+}
+</script>
+<!-- ----- AJAX ----- -->
+<!-- 1. Get -->
+<div id="poll">
+<h3>Do you like PHP and AJAX so far?</h3>
+<form>
+Yes: <input type="radio" name="vote" value="0" onclick="getVote(this.value)"><br>
+No: <input type="radio" name="vote" value="1" onclick="getVote(this.value)">
+</form>
+<!-- 2. Live search -->
+<form>
+<input type="text" size="30" onkeyup="showResult(this.value)">
+<div id="livesearch"></div>
+</form>
+<!-- 3. Get -->
+<form>
+Select a CD:
+<select name="cds" onchange="showCD(this.value)">
+  <option value="">Select a CD:</option>
+  <option value="Bob Dylan">Bob Dylan</option>
+  <option value="Bee Gees">Bee Gees</option>
+  <option value="Cat Stevens">Cat Stevens</option>
+</select>
+</form>
+<div id="txtHint"><b>CD info will be listed here...</b></div>
+<!-- 4. Get -->
+<form>
+<select name="users" onchange="showUser(this.value)">
+  <option value="">Select a person:</option>
+  <option value="1">Peter Griffin</option>
+  <option value="2">Lois Griffin</option>
+  <option value="3">Joseph Swanson</option>
+  <option value="4">Glenn Quagmire</option>
+  </select>
+</form>
+<br>
+<div id="txtHint"><b>Person info will be listed here...</b></div>
+<!-- 5. Get -->
+<p><b>Start typing a name in the input field below:</b></p>
+<form action="">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname" onkeyup="showHint(this.value)">
+</form>
+<p>Suggestions: <span id="txtHint"></span></p>
+<form action="ajax_upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
+<!-- ----- Security, Validation: Validate Form Data ----- -->
+<!-- 1. Keep The Values in The Form -->
+<h2>PHP Form Validation Example</h2>
+<p><span class="error">* required field</span></p>
+<!-- 2. Avoid $_SERVER["PHP_SELF"] Exploits -->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  Name: <input type="text" name="name" value="<?php echo $name;?>">
+  <span class="error">* <?php echo $nameErr;?></span>
+  <br><br>
+  E-mail: <input type="text" name="email" value="<?php echo $email;?>">
+  <span class="error">* <?php echo $emailErr;?></span>
+  <br><br>
+  Website: <input type="text" name="website" value="<?php echo $website;?>">
+  <span class="error"><?php echo $websiteErr;?></span>
+  <br><br>
+  Comment: <textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
+  <br><br>
+  Gender:
+  <input type="radio" name="gender" value="female" <?php if (isset($gender) && $gender=="female") echo "checked";?> >Female
+  <input type="radio" name="gender" value="male" <?php if (isset($gender) && $gender=="male") echo "checked";?> >Male
+  <input type="radio" name="gender" value="other" <?php if (isset($gender) && $gender=="other") echo "checked";?> >Other
+  <span class="error">* <?php echo $genderErr;?></span>
+  <br><br>
+  <input type="submit" name="submit" value="Submit"> 
+</form>
+<table>
+  <tr>
+    <td>Filter Name</td>
+    <td>Filter ID</td>
+  </tr>
+  <?php
+  // 1. Always validate external data!
+  foreach (filter_list() as $id =>$filter) {
+    echo '<tr><td>' . $filter . '</td><td>' . filter_id($filter) . '</td></tr>';
+  }
+  // 2. Sanitize a String
+  $str = "<h1>Hello World!</h1>";
+  $newstr = filter_var($str, FILTER_SANITIZE_STRING);
+  echo $newstr;
+  // 3. Validate an Integer
+  $int = 100;
+  if (!filter_var($int, FILTER_VALIDATE_INT) === false) {
+    echo("Integer is valid");
+  } else {
+    echo("Integer is not valid");
+  }
+  // 4. Problem With 0
+  $int = 0;
+  if (filter_var($int, FILTER_VALIDATE_INT) === 0 || !filter_var($int, FILTER_VALIDATE_INT) === false) {
+    echo("Integer is valid");
+  } else {
+    echo("Integer is not valid");
+  }
+  // 5. Validate an IP Address
+  $ip = "127.0.0.1";
+  if (!filter_var($ip, FILTER_VALIDATE_IP) === false) {
+    echo("$ip is a valid IP address");
+  } else {
+    echo("$ip is not a valid IP address");
+  }
+  // 6. Sanitize and Validate an Email Address
+  $email = "john.doe@example.com";
+  $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+    echo("$email is a valid email address");
+  } else {
+    echo("$email is not a valid email address");
+  }
+  // 7. Sanitize and Validate a URL
+  $url = "https://www.w3schools.com";
+  $url = filter_var($url, FILTER_SANITIZE_URL);
+  if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+    echo("$url is a valid URL");
+  } else {
+    echo("$url is not a valid URL");
+  }
+  // 8. Validate Range
+  $int = 122;
+  $min = 1;
+  $max = 200;
+  if (filter_var($int, FILTER_VALIDATE_INT, array("options" => array("min_range"=>$min, "max_range"=>$max))) === false) {
+    echo("Variable value is not within the legal range");
+  } else {
+    echo("Variable value is within the legal range");
+  }
+  // 9. Validate IPv6 Address
+  $ip = "2001:0db8:85a3:08d3:1319:8a2e:0370:7334";
+  if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === false) {
+    echo("$ip is a valid IPv6 address");
+  } else {
+    echo("$ip is not a valid IPv6 address");
+  }
+  // 10. Validate URL - Must Contain QueryString
+  $url = "https://www.w3schools.com";
+  if (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED) === false) {
+    echo("$url is a valid URL with a query string");
+  } else {
+    echo("$url is not a valid URL with a query string");
+  }
+  // 11. Remove Characters With ASCII Value > 127
+  $str = "<h1>Hello WorldÁEÁE</h1>";
+  $newstr = filter_var($str, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+  echo $newstr;
+  ?>
+</table>
+<!-- 3. GET for sending non-sensitive data, limited data [2000], bookmark. -->
+<a href="inc_get.php?subject=PHP&web=W3schools.com">Test $GET</a>
+<!-- 4. POST for sending sensitive data, password, unlimited data, multi-part binary -->
+<form action="inc_welcome.php" method="post">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+  Name: <input type="text" name="fname">
+  <input type="submit">
+</form>
+<!-- ----- Cookie ----- -->
+<p><strong>Note:</strong> You might have to reload the page to see the value of the cookie.</p>
+</body>
+</html>
+<?php
+/* Global Variables
+	$GLOBALS $_SERVER $_REQUEST $_POST $_GET $_FILES $_ENV $_COOKIE $_SESSION
+	$_SERVER['PHP_SELF']; $_SERVER['SERVER_NAME']; $_SERVER['HTTP_HOST'];
+	$_SERVER['HTTP_REFERER']; $_SERVER['HTTP_USER_AGENT']; $_SERVER['SCRIPT_NAME'];
+	$_SERVER['GATEWAY_INTERFACE']; $_SERVER['SERVER_ADDR']; $_SERVER['SERVER_SOFTWARE'];
+	$_SERVER['SERVER_PROTOCOL']; $_SERVER['REQUEST_METHOD']; $_SERVER['REQUEST_TIME']; 
+	$_SERVER['QUERY_STRING']; $_SERVER['HTTP_ACCEPT']; $_SERVER['HTTP_ACCEPT_CHARSET'];
+	$_SERVER['HTTPS']; $_SERVER['REMOTE_ADDR']; $_SERVER['REMOTE_HOST']; $_SERVER['REMOTE_PORT'];
+	$_SERVER['SCRIPT_FILENAME']; $_SERVER['SERVER_ADMIN']; $_SERVER['SERVER_PORT'];
+	$_SERVER['SERVER_SIGNATURE']; $_SERVER['PATH_TRANSLATED']; $_SERVER['SCRIPT_URI'];
+*/
+/* Operators
+	Arithmetic : 
+		Addition+ Subtraction- Multiplication* Division/ Modulus% Exponentiation**  
+	Assignment : x = y, x += y, x -= y, x *= y, x /= y, x %= y
+	Comparison : Equal== Identical=== Not equal!=, <> Not identical!== Greater than>
+           Less than<, >=, <= Spaceship<=>
+	Increment or Decrement : 		Pre-increment++$x Post-increment$x++
+	Logical : and or xor && || !
+	String : Concatenation., .=
+	Array : Union+ Equality== Identity=== Inequality!=, <> Non-identity!==
+	Conditional : Ternary$x = expr1 ? expr2 : expr3 Null coalescing$x = expr1 ?? expr2
+	Class Object : -> :: : \
+*/
+/* Keywords
+	class public protected private function $this new return instanceof 
+	__construct __destruct() extends final const self abstract interface 
+	implements trait use static parent namespace as null 
+*/
+/* Regular expression
+Runtime Configuration php.ini
+Name					Default		Description							Changeable
+pcre.backtrack_limit	"1000000"	The maximum number of backtracks	PHP_INI_ALL
+pcre.recursion_limit	"100000"	The maximum recursion depth
+pcre.jit				"1"			Enables PCRE's (Perl-Compatible Regular Expressions) JIT compilation.
+
+Modifier	Description
+i			Performs a case-insensitive search
+m			Performs a multiline search
+u			Enables correct matching of UTF-8 encoded patterns
+
+Pattern	Description
+[abc]	Find one character from the options between the brackets
+[^abc]	Find any character NOT between the brackets
+[0-9]	Find one character from the range 0 to 9
+
+Metacharacter	Description
+|				Find a match for any one of the patterns separated by | as in: cat|dog|fish
+.				Find just one instance of any character
+^				Finds a match as the beginning of a string as in: ^Hello
+$				Finds a match at the end of the string as in: World$
+\d				Find a digit
+\s				Find a whitespace character
+\b				Find a match word like this: \bWORD or WORD\b
+\uxxxx			Find the Unicode character specified by the hexadecimal number xxxx
+
+Quantifier	Description
+n+			Matches any string that contains at least one n
+n*			Matches any string that contains zero or more occurrences of n
+n?			Matches any string that contains zero or one occurrences of n
+n{x}		Matches any string that contains a sequence of X n's
+n{x,y}		Matches any string that contains a sequence of X to Y n's
+n{x,}		Matches any string that contains a sequence of at least X n's
+
+Grouping　( )
+Special characters using backslash ( \ ) to escape. $pattern = '/\?+/';
+
+Function			Description
+preg_filter()		Returns a string or an array with pattern matches replaced,
+preg_grep()			Returns an array consisting only of elements from the input array.
+preg_last_error()	Returns an error code
+preg_match()		Finds the first match of a pattern in a string
+preg_match_all()	Finds all matches of a pattern in a string
+preg_replace()		Returns a string where matches of a pattern
+preg_replace_callback()	Given an expression and a callback
+preg_replace_callback_array()	Given an array associating expressions with callbacks
+preg_split()		Breaks a string into an array using matches of a regular expression as separators
+preg_quote()		Escapes characters by putting a backslash in front of them
+*/
+/* Date Time
+Runtime Configuration php.ini
+Name					Description					Default
+date.timezone			The default timezone 		""	PHP
+date.default_latitude	The default latitude 		"31.7667"
+date.default_longitude	The default longitude 		"35.2333"
+date.sunrise_zenith		The default sunrise zenith 	"90.83"
+date.sunset_zenith	The default sunset zenith		"90.83"
+
+Function					Description
+checkdate()					Validates a Gregorian date
+date_add()					Adds days, months, years, hours, minutes, and seconds to a date
+date_create_from_format()	Returns a new DateTime object
+date_create()				Returns a new DateTime object
+date_date_set()				Sets a new date
+date_default_timezone_get()	Returns the default timezone used by all date/time functions
+date_default_timezone_set()	Sets the default timezone used by all date/time functions
+date_diff()					Returns the difference between two dates
+date_format()				Returns a date formatted according to a specified format
+date_get_last_errors()		Returns the warnings/errors found in a date string
+date_interval_create_from_date_string()	Sets up a DateInterval from the relative parts of the string
+date_interval_format()		Formats the interval
+date_isodate_set()			Sets the ISO date
+date_modify()				Modifies the timestamp
+date_offset_get()			Returns the timezone offset
+date_parse_from_format()	Returns an associative array with detailed info 
+date_parse()				Returns an associative array with detailed info about a specified date
+date_sub()					Subtracts
+date_sun_info()				Returns an array sunset/sunrise/twilight/begin/end
+date_sunrise()				Returns the sunrise time for a specified day and location
+date_sunset()				Returns the sunset time for a specified day and location
+date_time_set()				Sets the time
+date_timestamp_get()		Returns the Unix timestamp
+date_timestamp_set()		Sets the date and time based on a Unix timestamp
+date_timezone_get()			Returns the time zone of the given DateTime object
+date_timezone_set()			Sets the time zone for the DateTime object
+date()						Formats a local date and time
+getdate()					Returns date/time information
+gettimeofday()				Returns the current time
+gmdate()					Formats a GMT/UTC date and time
+gmmktime()					Returns the Unix timestamp for a GMT date
+gmstrftime()				Formats a GMT/UTC date and time according to locale settings
+idate()						Formats a local time/date as integer
+localtime()					Returns the local time
+microtime()					Returns the current Unix timestamp with microseconds
+mktime()					Returns the Unix timestamp for a date
+strftime()					Formats a local time and/or date according to locale settings
+strptime()					Parses a time/date generated with strftime()
+strtotime()					Parses an English textual datetime into a Unix timestamp
+time()						Returns the current time as a Unix timestamp
+timezone_abbreviations_list()	Returns an associative array containing dst, offset, and the timezone name
+timezone_identifiers_list()	Returns an indexed array with all timezone identifiers
+timezone_location_get()		Returns location information for a specified timezone
+timezone_name_from_ abbr()	Returns the timezone name from abbreviation
+timezone_name_get()			Returns the name of the timezone
+timezone_offset_get()		Returns the timezone offset from GMT
+timezone_open()	Creates new DateTimeZone object
+timezone_transitions_get()	Returns all transitions for the timezone
+timezone_version_get()		Returns the version of the timezonedb
+
+Constant				Description
+DATE_ATOM				Atom (example: 2019-01-18T14:13:03+00:00)
+DATE_COOKIE				HTTP Cookies (example: Fri, 18 Jan 2019 14:13:03 UTC)
+DATE_ISO8601			ISO-8601 (example: 2019-01-18T14:13:03+0000)
+DATE_RFC822				RFC 822 (example: Fri, 18 Jan 2019 14:13:03 +0000)
+DATE_RFC850				RFC 850 (example: Friday, 18-Jan-19 14:13:03 UTC)
+DATE_RFC1036			RFC 1036 (example: Friday, 18-Jan-19 14:13:03 +0000)
+DATE_RFC1123			RFC 1123 (example: Fri, 18 Jan 2019 14:13:03 +0000)
+DATE_RFC2822			RFC 2822 (example: Fri, 18 Jan 2019 14:13:03 +0000)
+DATE_RFC3339			Same as DATE_ATOM
+DATE_RFC3339_EXTENDED	RFC3339 Extended format (example: 2019-01-18T16:34:01.000+00:00)
+DATE_RSS				RSS (Fri, 18 Jan 2019 14:13:03 +0000)
+DATE_W3C				World Wide Web Consortium (example: 2019-01-18T14:13:03+00:00)
+SUNFUNCS_RET_TIMESTAMP	Timestamp
+SUNFUNCS_RET_STRING		Hours:minutes (example: 09:41)
+SUNFUNCS_RET_DOUBLE		Hours as a floating point number (example: 9.75)
+*/
+/* Security, Validation
+Runtime Configuration php.ini
+Name					
+filter.default	Description : Filter all $_GET, $_POST, $_COOKIE, $_REQUEST and $_SERVER
+				Default　: "unsafe_raw"	
+				Changeable : PHP_INI_PERDIR
+filter.default_flags	
+			Description : Default flags to apply when the default filter is set. This is set to FILTER_FLAG_NO_ENCODE_QUOTES by default for backwards compatibility reasons	
+			Default　: NULL	
+			Changeable : PHP_INI_PERDIR
+
+Function			Description
+filter_has_var()	Checks whether a variable of a specified input type exist
+filter_id()			Returns the filter ID of a specified filter name
+filter_input()		Gets an external variable (e.g. from form input) and optionally filters it
+filter_input_array()	Gets external variables (e.g. from form input) and optionally filters them
+filter_list()		Returns a list of all supported filter names
+filter_var()		Filters a variable with a specified filter
+filter_var_array()	Gets multiple variables and filter them
+
+Constant			Description
+INPUT_POST			POST variables
+INPUT_GET			GET variables
+INPUT_COOKIE		COOKIE variables
+INPUT_ENV			ENV variables
+INPUT_SERVER		SERVER variables
+FILTER_DEFAULT		Do nothing. Equivalent to FILTER_UNSAFE_RAW
+FILTER_FLAG_NONE	Allows no flags
+FILTER_FLAG_ALLOW_OCTAL		Only for inputs that starts with a zero (0) as octal numbers.
+FILTER_FLAG_ALLOW_HEX		Only for inputs that starts with 0x/0X as hexadecimal numbers.
+FILTER_FLAG_STRIP_LOW		Strip characters with ASCII value lower than 32
+FILTER_FLAG_STRIP_HIGH		Strip characters with ASCII value greater than 127
+FILTER_FLAG_ENCODE_LOW		Encode characters with ASCII value lower than 32
+FILTER_FLAG_ENCODE_HIGH		Encode characters with ASCII value greater than 127
+FILTER_FLAG_ENCODE_AMP		Encode &
+FILTER_FLAG_NO_ENCODE_QUOTES	Do not encode ' and "
+FILTER_FLAG_EMPTY_STRING_NULL	Not in use
+FILTER_FLAG_ALLOW_FRACTION		Allows a period (.) as a fractional separator in numbers
+FILTER_FLAG_ALLOW_THOUSAND		Allows a comma (,) as a thousands separator in numbers
+FILTER_FLAG_ALLOW_SCIENTIFIC	Allows an e or E for scientific notation in numbers
+FILTER_FLAG_PATH_REQUIRED		The URL must contain a path part
+FILTER_FLAG_QUERY_REQUIRED		The URL must contain a query string
+FILTER_FLAG_IPV4	Allows 		the IP address to be in IPv4 format
+FILTER_FLAG_IPV6	Allows 		the IP address to be in IPv6 format
+FILTER_FLAG_NO_RES_RANGE		Fails validation for the  
+								reserved IPv4 ranges: 
+									0.0.0.0/8, 
+									169.254.0.0/16, 
+									127.0.0.0/8, 
+									240.0.0.0/4, 
+								reserved IPv6 ranges: 
+									::1/128, 
+									::/128, 
+									::ffff:0:0/96, 
+									fe80::/10
+FILTER_FLAG_NO_PRIV_RANGE		Fails validation for the 
+								private IPv4 ranges: 
+									10.0.0.0/8, 
+									172.16.0.0/12,
+									192.168.0.0/16,
+								private IPv6 addresses starting with FD or FC
+FILTER_FLAG_EMAIL_UNICODE	Allows the local part of the email address to contain Unicode characters
+FILTER_REQUIRE_SCALAR		The value must be a scalar
+FILTER_REQUIRE_ARRAY		The value must be an array
+FILTER_FORCE_ARRAY			Treats a scalar value as array with the scalar value as only element
+FILTER_NULL_ON_FAILURE		Return NULL on failure for unrecognized boolean values
+FILTER_VALIDATE_BOOLEAN		Validates a boolean
+FILTER_VALIDATE_EMAIL		Validates value as a valid e-mail address
+FILTER_VALIDATE_FLOAT		Validates value as float
+FILTER_VALIDATE_INT			Validates value as integer
+FILTER_VALIDATE_IP			Validates value as IP address
+FILTER_VALIDATE_MAC			Validates value as MAC address
+FILTER_VALIDATE_REGEXP		Validates value against a regular expression
+FILTER_VALIDATE_URL			Validates value as URL
+FILTER_SANITIZE_EMAIL		Removes all illegal characters from an e-mail address
+FILTER_SANITIZE_ENCODED		Removes/Encodes special characters
+FILTER_SANITIZE_MAGIC_QUOTES	Apply addslashes()
+FILTER_SANITIZE_NUMBER_FLOAT	Remove all characters, except digits, +- signs, and optionally .,eE
+FILTER_SANITIZE_NUMBER_INT		Removes all characters except digits and + - signs
+FILTER_SANITIZE_SPECIAL_CHARS	Removes special characters
+FILTER_SANITIZE_STRING			Removes tags/special characters from a string
+FILTER_SANITIZE_STRIPPED		Alias of FILTER_SANITIZE_STRING
+FILTER_SANITIZE_URL				Removes all illegal character from a URL
+FILTER_UNSAFE_RAW				Do nothing, optionally strip/encode special characters
+FILTER_CALLBACK				Call a user-defined function to filter data
+*/
+/* File I/O
+Runtime Configuration php.ini.
+Name						Default		Description						Changeable
+allow_url_fopen				"1"			fopen()-type to work with URLs	PHP_INI_SYSTEM
+allow_url_include			"0"											PHP_INI_SYSTEM
+user_agent					NULL										PHP_INI_ALL
+default_socket_timeout		"60"	in seconds							PHP_INI_ALL
+from				""			email address to be used on unauthenticated FTP connections 
+								and in the From header for HTTP connections when using ftp 
+								and http wrappers					PHP_INI_ALL
+auto_detect_line_endings	"0"											PHP_INI_ALL
+sys_temp_dir	""														PHP_INI_SYSTEM
+
+Modes	Description
+r		Open, read only, at the beginning of the file
+w		Open, write only, Erases or creates a new file, at the beginning
+a		Open, write only, preserved, at the end of the file, Creates a new file 
+x		Creates, write only. Returns FALSE and an error if file already exists
+r+		Open a file for read/write
+w+		Open a file for read/write.
+a+		Open a file for read/write.
+x+		Creates a new file for read/write. Returns FALSE and an error if file already exists
+
+Function			Description
+basename()			Returns the filename component of a path
+chgrp()				Changes the file group
+chmod()				Changes the file mode
+chown()				Changes the file owner
+clearstatcache()	Clears the file status cache
+copy()				Copies a file
+delete()			See unlink()
+dirname()			Returns the directory name component of a path
+disk_free_space()	Returns the free space of a filesystem or disk
+disk_total_space()	Returns the total size of a filesystem or disk
+diskfreespace()		Alias of disk_free_space()
+fclose()			Closes an open file
+feof()				Checks if the "end-of-file" (EOF) has been reached for an open file
+fflush()			Flushes buffered output to an open file
+fgetc()				Returns a single character from an open file
+fgetcsv()			Returns a line from an open CSV file
+fgets()				Returns a line from an open file
+file()				Reads a file into an array
+file_exists()		Checks whether or not a file or directory exists
+file_get_contents()	Reads a file into a string
+file_put_contents()	Writes data to a file
+fileatime()			Returns the last access time of a file
+filectime()			Returns the last change time of a file
+filegroup()			Returns the group ID of a file
+fileinode()			Returns the inode number of a file
+filemtime()			Returns the last modification time of a file
+fileowner()			Returns the user ID (owner) of a file
+fileperms()			Returns the file's permissions
+filesize()			Returns the file size
+filetype()			Returns the file type
+flock()				Locks or releases a file
+fnmatch()			Matches a filename or string against a specified pattern
+fopen()				Opens a file or URL
+fpassthru()			Reads from the current position - until EOF, and writes to output buffer
+fputcsv()			Formats a line as CSV and writes it to an open file
+fputs()				Alias of fwrite()
+fread()				Reads from an open file (binary-safe)
+fscanf()			Parses input from an open file according to a specified format
+fseek()				Seeks in an open file
+fstat()				Returns information about an open file
+ftell()				Returns the current position in an open file
+ftruncate()			Truncates an open file to a specified length
+fwrite()			Writes to an open file (binary-safe)
+glob()				Returns an array of filenames / directories matching a specified pattern
+is_dir()			Checks whether a file is a directory
+is_executable()		Checks whether a file is executable
+is_file()			Checks whether a file is a regular file
+is_link()			Checks whether a file is a link
+is_readable()		Checks whether a file is readable
+is_uploaded_file()	Checks whether a file was uploaded via HTTP POST
+is_writable()		Checks whether a file is writable
+is_writeable()		Alias of is_writable()
+lchgrp()			Changes the group ownership of a symbolic link
+lchown()			Changes the user ownership of a symbolic link
+link()				Creates a hard link
+linkinfo()			Returns information about a hard link
+lstat()				Returns information about a file or symbolic link
+mkdir()				Creates a directory
+move_uploaded_file()	Moves an uploaded file to a new location
+parse_ini_file()		Parses a configuration file
+parse_ini_string()		Parses a configuration string
+pathinfo()	Returns 	information about a file path
+pclose()			Closes a pipe opened by popen()
+popen()				Opens a pipe
+readfile()			Reads a file and writes it to the output buffer
+readlink()			Returns the target of a symbolic link
+realpath()			Returns the absolute pathname
+realpath_cache_get()	Returns realpath cache entries
+realpath_cache_size()	Returns realpath cache size
+rename()			Renames a file or directory
+rewind()			Rewinds a file pointer
+rmdir()				Removes an empty directory
+set_file_buffer()	Sets the buffer size for write operations on the given file
+stat()				Returns information about a file
+symlink()			Creates a symbolic link
+tempnam()			Creates a unique temporary file
+tmpfile()			Creates a unique temporary file
+touch()				Sets access and modification time of a file
+umask()				Changes file permissions for files
+unlink()			Deletes a file
+checkdnsrr()		Checks DNS records for type corresponding to host
+closelog()			Closes the connection of system logger
+dns_check_record()	Alias of checkdnsrr()
+dns_get_mx()		Alias of getmxrr()
+dns_get_record()	Gets the DNS resource records associated with the specified hostname
+fsockopen()			Opens an Internet or Unix domain socket connection
+gethostbyaddr()		Returns the domain name for a given IP address
+gethostbyname()		Returns the IPv4 address for a given domain/host name
+gethostbynamel()	Returns a list of IPv4 address for a given domain/host name
+gethostname()		Returns the host name
+getmxrr()			Returns the MX records for the specified internet host name
+getprotobyname()	Returns the protocol number for a given protocol name
+getprotobynumber()     	Returns the protocol name for a given protocol number
+getservbyname()		Returns the port number for a given Internet service and protocol
+getservbyport()		Returns the Internet service for a given port and protocol
+header_register_callback()		Calls a header function
+header_remove()		Removes an HTTP header previously set with the header() function
+header()		Sends a raw HTTP header to a client
+headers_list()	Returns a list of response headers to be sent to the browser
+headers_sent()	Checks if/where headers have been sent
+http_response_code()			Sets or returns the HTTP response status code
+inet_ntop()		Converts a 32bit IPv4 or 128bit IPv6 address into a readable format
+inet_pton()		Converts a readable IP address into a packed 32bit IPv4 or 128bit IPv6 format
+ip2long()		Converts an IPv4 address into a long integer
+long2ip()		Converts a long integer address into a string in IPv4 format
+openlog()		Opens the connection of system logger
+pfsockopen()	Opens a persistent Internet or Unix domain socket connection
+setcookie()		Defines a cookie to be sent along with the rest of the HTTP headers
+setrawcookie()	Defines a cookie (without URL encoding) 
+socket_get_status()		Alias of stream_get_meta_data()
+socket_set_blocking()	Alias of stream_set_blocking()
+socket_set_timeout()	Alias of stream_set_timeout()
+syslog()		Generates a system log message
+*/
+?>
