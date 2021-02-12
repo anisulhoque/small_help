@@ -1,0 +1,122 @@
+Objective-C syntax used to declare a class interface
+----------------------------------------------------
+@interface SimpleClass : NSObject
+@end
+
+Public properties which is instance of the class
+------------------------------------------------
+@property NSString *firstName;
+
+method declaration
+------------------
+- (void)someMethodWithFirstValue:(SomeType)value1 secondValue:(AnotherType)value2;
+
+Class implementation
+--------------------
+#import "XYZPerson.h"
+ 
+@implementation XYZPerson
+ 
+@end
+
+Method implementation[-]
+---------------------
+- (void)sayHello
+{
+    NSLog(@"Hello, World!");
+}
+
+Factory Method[+]
+The id type defines a generic object pointer.
+--------------
++ (id)stringWithFormat:(NSString *)format, …;
+
+Messages
+--------
+[someObject doSomething];
+[self saySomething:@"Hello, world!"];
+[super saySomething:uppercaseGreeting];
+
+Dynamic allocation
+------------------
+NSObject *newObject = [[NSObject alloc] init];
+
+Dynamic allocation by Factory Method
+------------------------------------
+NSNumber *magicNumber = [NSNumber numberWithInt:42];
+NSString *someString = @"Hello, World!";
+
+NULL
+----
+if (somePerson != nil) {
+        // somePerson points to an object
+    }
+
+Protected
+---------
+@property (readonly) NSString *fullName;
+
+Define
+------
+@implementation YourClass
+@synthesize propertyName = instanceVariableName;
+@property (weak) id delegate;
+@property (unsafe_unretained) NSObject *unsafeProperty;
+NSObject * __unsafe_unretained unsafeReference;
+
+...
+@end
+Protocol & Delegates
+--------------------
+@protocol XYZPieChartViewDataSource
+
+@end
+@interface XYZPieChartView : UIView
+@property (weak) id <XYZPieChartViewDataSource> dataSource;
+...
+@end
+@interface MyClass : NSObject <MyProtocol>
+...
+@end
+
+Array
+-----
+NSArray *someArray =
+  [NSArray arrayWithObjects:someObject, someString, someNumber, someValue, nil];
+[someArray objectAtIndex:0]
+
+Fast Enumeration
+----------------
+for (<Type> <variable> in <collection>) {
+        ...
+    }
+Block
+-----
+^{
+         NSLog(@"This is a block");
+    }
+Concurrency
+-----------
+// schedule task on main queue:
+NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+[mainQueue addOperation:operation];
+ 
+// schedule task on background queue:
+NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+[queue addOperation:operation];
+
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+dispatch_async(queue, ^{
+    NSLog(@"Block for asynchronous execution");
+});
+
+------------------------------------------------
+To avoid a strong reference cycle
+Blocks maintain strong references to any captured objects, including self
+Concurrency, including two task-scheduling mechanisms: Operation queues and Grand Central Dispatch.
+------------------------------------------------
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210-CH1-SW1
+
+https://developer.apple.com/library/archive/navigation/#section=Platforms&topic=macOS
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Conventions/Conventions.html
+https://developer.apple.com/documentation/technologies
