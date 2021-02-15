@@ -1,12 +1,22 @@
-// AI.cpp :
-// Defines the entry point for the application.
-// START: SOS; ROGER, ERROR- WAIT< END> 		DELETE
-// ERROR: ONE WORD
-// DELETE: ONE LETTER
+
 #include "framework.h"
 #include "AI.h"
 #include "morse_wrapper.h"
 /*------------------------------------------------------------------------------------------------------------*/
+void input(const char* data);
+void output(const char* data, char codec);
+void input(const char* data, void output(const char*, char), char codec);
+void output(const char* data, char codec) {
+    // const char* input = valToBin('B', 0, 8);
+    // char data = binToVal("00000000");
+
+//    getchar();
+}
+
+void input(const char* data) {
+    input("am.", output, ENCODE);
+    //input(data, output, DECODE);
+}
 /*
 struct node {
     char data;
