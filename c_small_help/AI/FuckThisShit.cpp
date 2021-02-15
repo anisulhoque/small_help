@@ -102,7 +102,7 @@ void handleHardwareFaults_1() {
     catch (std::exception & e) {
         std::cerr << "Exception catched : " << e.what() << std::endl;
     }
-    cout << "‚¢‚¢‚ËB" << endl;
+    cout << "â€šÂ¢â€šÂ¢â€šÃ‹ÂB" << endl;
 }
 
 void delFiles() {
