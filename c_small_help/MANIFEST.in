@@ -1,3 +1,0 @@
-include LICENSE
-graft ui/templates
-global-exclude *.pyc
