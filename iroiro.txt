@@ -1,0 +1,4 @@
+whoami
+cd /dev
+sudo chown AliGht:admin bp*
+ls -la | grep bp
