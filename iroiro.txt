@@ -25,3 +25,10 @@ Control-Command-Power/Eject
 Control-Command-.
 
 find -f ''
+
+
+networksetup -listallhardwareports
+sudo tcpdump -i en0 -w trace.pcap
+
+https://www.december.com/unix/ref/chmod.html
+chmod 002 <filename>
