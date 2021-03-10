@@ -19,6 +19,8 @@ rebase Rebase is one of two Git utilities that specializes in integrating change
 git checkout -b <branch>1	
 git push -u origin <branch>
 
+Integrity
+git fsck
 
 Control-Command-Option-Power
 Control-Command-Power/Eject
