@@ -20,7 +20,7 @@ git checkout -b <branch>1
 git push -u origin <branch>
 
 
-
+Control-Command-Option-Power
 Control-Command-Power/Eject
 Control-Command-.
 
