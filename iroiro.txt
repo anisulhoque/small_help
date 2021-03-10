@@ -2,3 +2,26 @@ whoami
 cd /dev
 sudo chown AliGht:admin bp*
 ls -la | grep bp
+git branch -vv
+git branch -a
+git checkout <remote> -b <local>
+git lfs
+git submodule init
+git submodule update
+git config --list --show-origin
+
+git revert is the converse of git cherry-pick -- the latter applies the patch to a branch that's missing it, the former removes it from a branch that has it.
+
+cls # Clean Command Line Screen
+
+rebase Rebase is one of two Git utilities that specializes in integrating changes from one branch onto another
+
+git checkout -b <branch>1	
+git push -u origin <branch>
+
+
+
+Control-Command-Power/Eject
+Control-Command-.
+
+find -f ''
