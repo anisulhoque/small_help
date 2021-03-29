@@ -66,6 +66,19 @@ NSObject * __unsafe_unretained unsafeReference;
 
 ...
 @end
+
+Overloading
+-----------
+// Param name
+- (void) drawCircleWithCenter:(CGPoint)paramCenter
+                       radius:(CGFloat)paramRadius{ }
+- (void) drawCircleWithCenter:(CGPoint)paramCenter
+                       Radius:(CGFloat)paramRadius{ }
+
+// No. of Param
+- (NSInteger) method1:(NSInteger)param1{ return param1; }
+- (NSString*) method1:(NSString *)param1
+            andParam2:(NSString *)param2{ return nil; }
 Protocol & Delegates
 --------------------
 @protocol XYZPieChartViewDataSource
