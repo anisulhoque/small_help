@@ -135,7 +135,23 @@ dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAU
 dispatch_async(queue, ^{
     NSLog(@"Block for asynchronous execution");
 });
+Primitive generalize
+--------------------
+unsigned int uiPtr() {
+    return 0x0001;
+}
 
+void ulPtr(unsigned long* ul) {
+    *ul = (unsigned long) uiPtr();
+} 
+
+int main()
+{
+    unsigned int temp = 0x0;
+    ulPtr((unsigned long *) (&temp));
+    printf("%u", temp);
+    std::cout << "Hello World!\n";
+}
 ------------------------------------------------
 To avoid a strong reference cycle
 Blocks maintain strong references to any captured objects, including self
