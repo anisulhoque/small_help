@@ -108,6 +108,19 @@ Block [Closure]
 ^{
          NSLog(@"This is a block");
     }
+Template
+--------
+func objectFromNib<T: NSObject>(_: T.Type) -> T? {
+    let someObjectsFromNib: [AnyObject] = [NSString(string: "Hello"), NSView()]
+    for oneObject in someObjectsFromNib {
+        if let obj = oneObject as? T {
+            return obj
+        }
+    }
+    return nil
+}
+print(objectFromNib(NSView)) // Optional(<NSView: 0x1028020f0>)
+print(objectFromNib(NSString)) // Optional(Hello)
 Concurrency
 -----------
 // schedule task on main queue:
@@ -133,3 +146,4 @@ https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Progr
 https://developer.apple.com/library/archive/navigation/#section=Platforms&topic=macOS
 https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Conventions/Conventions.html
 https://developer.apple.com/documentation/technologies
+https://developer.apple.com/forums/thread/7875
