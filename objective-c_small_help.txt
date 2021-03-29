@@ -103,7 +103,7 @@ Fast Enumeration
 for (<Type> <variable> in <collection>) {
         ...
     }
-Block
+Block [Closure]
 -----
 ^{
          NSLog(@"This is a block");
