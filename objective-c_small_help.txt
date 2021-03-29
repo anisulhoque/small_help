@@ -147,3 +147,6 @@ https://developer.apple.com/library/archive/navigation/#section=Platforms&topic=
 https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Conventions/Conventions.html
 https://developer.apple.com/documentation/technologies
 https://developer.apple.com/forums/thread/7875
+------------------------------------------------
+isKindOfClass : instanceType
+typeof(*) : (*)value
