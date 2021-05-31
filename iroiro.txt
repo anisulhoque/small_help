@@ -34,3 +34,6 @@ sudo tcpdump -i en0 -w trace.pcap
 
 https://www.december.com/unix/ref/chmod.html
 chmod 002 <filename>
+
+Windows laptop Serial:
+wmic bios get serialnumber
