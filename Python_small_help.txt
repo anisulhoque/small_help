@@ -1,0 +1,333 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Aug 14 13:35:32 2020
+@author: Anisul Hoque
+"""
+"""
+@‡@ Image Data Show
+@‡A Image Array Show
+"""
+
+import matplotlib.pyplot as plt
+from skimage import io
+
+def plt_image_show(img):
+    plt.imshow(img)
+    plt.show()
+
+def sk_image_show(img):
+    io.imshow(img)
+    io.show()
+
+"""
+ ‡@‡@ Image Read@RGB
+ ‡@‡A Image Read RGBA
+ ‡@‡B Image Data To Numpy Array
+ ‡@‡C Image Data Show
+ ‡@‡D Image Array Show
+ ‡@‡E Image Read Grayscale
+ ‡@‡F Image Read Float
+ ‡@‡G Image Grayscale To RGBA
+ ‡@‡H Image Array RGB To Grayscale
+ ‡@‡H Image Array Show
+ ‡@‡I Image Read Array
+ ‡@‡J Load Sorted File List
+ ‡@‡K Image Read Binary
+ ‡@‡L Numpy To Image
+ ‡@‡M Numpy Reshape
+ ‡@‡N String Trimming
+ ‡@‡O String Splitting
+ ‡@‡P List Indexing
+ ‡@‡Q Image Crop
+ ‡@‡R Image Resize
+ ‡@‡S Image Save
+ ‡A‡@ File Rename
+ ‡A‡A Transform Tensor To Image
+ ‡A‡B Mean & Standard Deviation
+ ‡A‡C FFMPEG Video Frame Capture
+ ‡A‡D FFMPEG Webcam Frame Capture
+ ‡A‡E OpenCV Image Capture Webcam
+ ‡A‡F OpenCV Getchar
+ ‡A‡G Capture Stream Data
+ ‡A‡H Image Array Contrast
+ ‡A‡I Numpy Matrix Manipulation
+"""
+
+import os
+import numpy
+import imageio
+from PIL import Image
+from skimage import color
+import matplotlib.image as mpimg
+from skimage import img_as_float
+import torchvision.transforms as T
+
+image_dir = './Dataset/training/rail'
+image_name = 'Downloads00001.png'
+image_file = os.path.join(image_dir, image_name)
+strData = 'This is a string\nThis is another line.  '
+strList = []
+
+# ‡@‡@ Image Read@RGB
+pil_image_data = Image.open(image_file)
+
+# ‡@‡A Image Read RGBA
+pil_image_data_rgba = Image.open(image_file).convert('RGBA')
+
+# ‡@‡B Image Data To Numpy Array
+numpy_image = numpy.array(pil_image_data)
+
+# ‡@‡C Image Data Show
+plt_image_show(pil_image_data)
+
+# ‡@‡D Image Array Show
+plt_image_show(numpy_image)
+
+# ‡@‡E Image Read Grayscale
+sk_image = io.imread(image_file, True)
+
+# ‡@‡F Image Read Float
+sk_image_float = img_as_float(sk_image)
+
+# ‡@‡G Image Grayscale To RGBA
+sk_image_gray_to_rgba = color.gray2rgb(sk_image_float, True)
+
+# ‡@‡H Image Array RGB To Grayscale
+rgb = mpimg.imread('a.png')
+gray = np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
+
+# ‡@‡H Image Array Show
+sk_image_show(sk_image)
+
+# ‡@‡I Image Read Array
+imgio_image = imageio.imread(image_file)
+
+# ‡@‡J Load Sorted File List
+filenames = [name for name in os.listdir(image_dir) 
+             if os.path.splitext(name)[-1] == '.png' or '.jpg']
+
+# ‡@‡K Image Read Binary
+numpy_binary = numpy.fromfile(image_file, dtype='uint8')
+
+# ‡@‡L Numpy To Image
+numpy_to_image = Image.fromarray(numpy_image)
+
+# ‡@‡M Numpy Reshape
+numpy_reshaped_image = numpy_binary[:103000].reshape(500, 206)
+
+# ‡@‡N String Trimming
+strdata = strData.strip()
+
+# ‡@‡O String Splitting
+strList = strdata.split()
+
+# ‡@‡Q List Indexing
+for i in strList:
+    print(i.strip())
+
+# ‡@‡Q Image Crop, Transposed Matrix
+nparray = numpy_image[100:1000, 100:1000]
+
+# ‡@‡R Image Resize
+pil_image_resize = pil_image_data.resize((512, 512))
+
+# ‡@‡S Image Save
+pil_image_resize.save('test.png')
+
+# ‡A‡@@File Rename
+import os
+image_dir = './Annotation_local/images/rail'
+filetext = 'Downloads'
+prefix = 202008220001
+ext = '.png'
+
+filenames = sorted([name for name in os.listdir(image_dir) 
+             if os.path.splitext(name)[-1] == ext])
+
+for filename in filenames:
+    new_name = os.path.join(image_dir, filetext + str(prefix) + ext)
+    old_name = os.path.join(image_dir, filename)
+    os.rename(old_name, new_name)
+    prefix += 1
+
+# ‡A‡A Transform Image To Tensor Vice Versa
+transform = T.Compose(
+    [T.ToTensor()])
+
+img = Image.open('IMAGE_NAME.png')
+tensor = transform(img)
+img = T.ToPILImage(mode='RGB')(tensor)
+
+# ‡A‡B Mean & Standard Deviation
+import torch
+data_dir = './FOLDER'
+filenames = [name for name in os.listdir(data_dir) if os.path.splitext(name)[-1] == '.png']
+
+batch = torch.zeros(3, 3, 256, 256, dtype=torch.uint8)
+for i, filename in enumerate(filenames):
+    img_arr = imageio.imread(os.path.join(data_dir, filename))
+    img = torch.from_numpy(img_arr)
+    batch[i] = torch.transpose(img, 0, 2)
+batch = batch.float()
+batch /= 255.0
+n_channels = batch.shape[1]
+for c in range(n_channels):
+    mean = torch.mean(batch[:, c])
+    print(mean)
+    std = torch.std(batch[:, c])
+    print(std)
+    batch[:, c] = (batch[:, c] - mean) / std
+    print(batch[:, c])
+print(batch[:, 0])
+
+# ‡A‡C FFMPEG Video Frame Capture
+ffmpeg -i <VIDEO_FILE> -vcodec png -r 1/<FPS e.g. 0.25 for FPS = 4> <FILENAME%04d.png>
+
+# ‡A‡D FFMPEG Webcam Frame Capture
+ffmpeg -y -f vfwcap -i <CAMERA_INDEX> -vcodec png -r 1/<FPS e.g. 0.25 for FPS = 4> <FILENAME%04d.png>
+
+# ‡A‡E OpenCV Image Capture Webcam
+import cv2
+cap = cv2.VideoCapture(0)
+cap.grab()
+ret, frame = cap.retrieve()
+numpy_to_image = Image.fromarray(frame)
+numpy_to_image.save('test.png')
+cap.release()
+
+# ‡A‡F@OpenCV Getchar
+if cv2.waitKey(1) & 0xFF == ord('q'):
+    print()
+
+# ‡A‡G Capture Stream Data
+import io
+from PIL import Image
+import subprocess
+import os
+
+p = subprocess.Popen(['ffmpeg', '-y', '-f', 'vfwcap', '-i', '0'], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+
+with p.stdout as stdout:
+    out, err = p.communicate()
+    stream = io.BytesIO(out)
+
+p.terminate()
+
+# ‡A‡H Image Array Contrast
+rgb = mpimg.imread('a.png')
+gray = np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
+contrast = (((gray - gray.min()) / (gray.max() - gray.min())) * 255.9).astype(np.uint8)
+
+# ‡A‡I Numpy Matrix Manipulation
+mat = [[1, 2, 3, 4, 6],
+       [2, 3, 4, 5, 1],
+       [3, 4, 5, 1, 2],
+       [4, 5, 1, 2, 3]]
+
+numpy_matrix = np.array(mat)
+numpy_slice = numpy_matrix[0:2, 2:5]
+numpy_reshape = numpy_slice.reshape(3, 2)
+numpy_transpose = np.transpose(numpy_slice)
+numpy_lower_triangle_matrix = np.tril(mat)
+numpy_upper_triangle_matrix = np.triu(mat)
+
+# Crop & Resize
+# Image Width Height Numpy Height Width [Transposed]
+import os
+import numpy
+from PIL import Image
+
+object_name = 'train'
+object_set = 'testset/'
+src_image_dir = './Annotation_local/images/' + object_set + object_name
+annotation_dir = './Annotation_local/annotation/' + object_set + object_name
+dst_image_dir = './Dataset/' + object_set + object_name
+
+size = 32
+
+src_image_names = sorted([name for name in os.listdir(src_image_dir) 
+             if os.path.splitext(name)[-1] == '.png'])
+
+annotation_names = sorted([name for name in os.listdir(annotation_dir) 
+             if os.path.splitext(name)[-1] == '.txt'])
+
+for image_name, annotation_name in zip(src_image_names, annotation_names):
+    image_file = os.path.join(src_image_dir, image_name)
+    annotation_file = os.path.join(annotation_dir, annotation_name)
+    dst_file = os.path.join(dst_image_dir, image_name)
+
+    image = Image.open(image_file)
+    numpy_image = numpy.array(image)
+    w, l, d = numpy_image.shape
+ 
+    c_x = 0.0
+    c_y = 0.0
+    width = 0.0
+    height = 0.0
+    with open(annotation_file, 'r') as file:
+        lists =  file.read().strip().split(' ')
+        c_x = float(lists[1])
+        c_y = float(lists[2])
+        width = float(lists[3])
+        height = float(lists[4])
+    x1 = int((c_x - width / 2) * l)
+    x2 = int((c_x + width / 2) * l)
+    y1 = int((c_y - height / 2) * w)
+    y2 = int((c_y + height / 2) * w)
+
+    numpy_crop = numpy_image[y1:y2, x1:x2]
+    print(image_name, annotation_name)
+    pil_image_data = Image.fromarray(numpy_crop)
+    pil_image_resize = pil_image_data.resize((size, size))
+    pil_image_resize.save(dst_file)
+    
+
+###############
+# ‡@‡R Image Resize
+import os
+import numpy
+from PIL import Image
+
+size = 32
+object_name = 'rail'
+image_dir = './Dataset/trainset/' + object_name
+
+image_names = sorted([name for name in os.listdir(image_dir) 
+             if os.path.splitext(name)[-1] == '.png'])
+
+for image_name in image_names:
+    image_file = os.path.join(image_dir, image_name)
+    image = Image.open(image_file)
+    image_resize = image.resize((size, size))
+    image_resize.save(image_file)
+
+#################
+# ‡A‡@@File Rename
+import os
+object_name = 'rail'
+src_image_dir = 'C:/Users/anist/Downloads/PlatformData/' + object_name
+dd_filetext = 'akinagahama_' + object_name + '_traindata_'
+vd_filetext = 'akinagahama_' + object_name + '_validationdata_'
+td_filetext = 'akinagahama_' + object_name + '_testdata_'
+dd_prefix = 202008250001
+vd_prefix = 202008250001
+td_prefix = 202008250001
+ext = '.png'
+
+filenames = sorted([name for name in os.listdir(src_image_dir) 
+             if os.path.splitext(name)[-1] == ext])
+i = 0;
+for filename in filenames:
+    old_name = os.path.join(src_image_dir, filename)
+    new_name = ''
+    if i % 13 == 0:
+        new_name = os.path.join(src_image_dir, td_filetext + str(td_prefix) + ext)
+        td_prefix = td_prefix + 1
+    elif i % 13 == 1 or i % 13 == 2:
+        new_name = os.path.join(src_image_dir, vd_filetext + str(vd_prefix) + ext)
+        vd_prefix = vd_prefix + 1
+    else:
+        new_name = os.path.join(src_image_dir, dd_filetext + str(dd_prefix) + ext)
+        dd_prefix = dd_prefix + 1
+    os.rename(old_name, new_name)
+    i = i + 1
